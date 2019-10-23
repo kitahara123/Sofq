@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
 using TMPro;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using Task = System.Threading.Tasks.Task;
 
