@@ -9,7 +9,7 @@ namespace UnityEngine.UI.Extensions
 {
     [RequireComponent(typeof(ScrollRect))]
     [AddComponentMenu("Layout/Extensions/Vertical Scroll Snap")]
-    public class VerticalScrollSnap : ScrollSnapBase, IEndDragHandler
+    public class VerticalScrollSnap : ScrollSnapBase
     {
         void Start()
         {
@@ -186,48 +186,5 @@ namespace UnityEngine.UI.Extensions
             ChangeBulletsInfo(_currentPage);
         }
 
-        private void OnRectTransformDimensionsChange()
-        {
-            if (_childAnchorPoint != Vector2.zero)
-            {
-//                UpdateLayout();
-            }
-        }
-
-        #region Interfaces
-        /// <summary>
-        /// Release screen to swipe
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            _pointerDown = false;
-
-            if (_scroll_rect.vertical)
-            {
-                if (UseFastSwipe)
-                {
-                    //If using fastswipe - then a swipe does page next / previous
-                    if ((_scroll_rect.velocity.y > 0 && _scroll_rect.velocity.y > FastSwipeThreshold) ||
-                        _scroll_rect.velocity.y < 0 && _scroll_rect.velocity.y < -FastSwipeThreshold)
-                    {
-                        _scroll_rect.velocity = Vector3.zero;
-                        if (_startPosition.y - _screensContainer.localPosition.y > 0)
-                        {
-                            NextScreen();
-                        }
-                        else
-                        {
-                            PreviousScreen();
-                        }
-                    }
-                    else
-                    {
-                        ScrollToClosestElement();
-                    }
-                }
-            }
-        }
-        #endregion
     }
 }

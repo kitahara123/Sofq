@@ -78,6 +78,7 @@ namespace Sofq
 
         private void ChangeBet()
         {
+            if (isSpin) return;
             if (model.Score < betDelta) return;
             var betLimit = maxBet < model.Score ? maxBet : model.Score;
             var newBet = (model.CurrentBet + betDelta) % betLimit;

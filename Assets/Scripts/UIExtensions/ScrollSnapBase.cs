@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI.Extensions
 {
-    public class ScrollSnapBase : MonoBehaviour, IBeginDragHandler, IDragHandler
+    public class ScrollSnapBase : MonoBehaviour
     {
         internal RectTransform _screensContainer;
         internal bool _isVertical;
@@ -429,30 +429,5 @@ namespace UnityEngine.UI.Extensions
             OnSelectionChangeEndEvent.Invoke(_currentPage);
             _settled = true;
         }
-
-        #region Interfaces
-
-        /// <summary>
-        /// Touch screen to start swiping
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _pointerDown = true;
-            _settled = false;
-            StartScreenChange();
-            _startPosition = _screensContainer.localPosition;
-        }
-
-        /// <summary>
-        /// While dragging do
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnDrag(PointerEventData eventData)
-        {
-            _lerp = false;
-        }
-
-        #endregion
     }
 }
