@@ -1549,9 +1549,9 @@ MonoBehaviour:
   m_fontSize: 100
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 100
   m_fontStyle: 17
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -1584,7 +1584,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 31.462158, y: 16.043823, z: 34.072754, w: 10.381165}
   m_textInfo:
     textComponent: {fileID: 668963302}
     characterCount: 8
@@ -2442,6 +2442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1826488888}
+  - {fileID: 1379737678}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2461,20 +2462,6 @@ MonoBehaviour:
   betDelta: 100
   maxBet: 500
   view: {fileID: 1826488887}
-  model:
-    Score: 1000
-    SpinsLeft: 30
-    MaxSpins: 50
-    CurrentBet: 100
-    Slot1:
-      SlotIndex: 0
-      WinningItemIndex: 0
-    Slot2:
-      SlotIndex: 0
-      WinningItemIndex: 0
-    Slot3:
-      SlotIndex: 0
-      WinningItemIndex: 0
   slotScroll1: {fileID: 1234666228}
   slotScroll2: {fileID: 1550036247}
   slotScroll3: {fileID: 1936452449}
@@ -3036,6 +3023,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310730370}
   m_CullTransparentMesh: 0
+--- !u!1 &1379737677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379737678}
+  - component: {fileID: 1379737679}
+  m_Layer: 0
+  m_Name: TestServer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1379737678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379737677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1114156920}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1379737679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379737677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9be1352366748349817b4f2f44710a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: 1000
+  MaxSpins: 50
+  SpinsLeft: 30
+  CurrentBet: 100
+  SpinsRenewCount: 5
+  SpinsRenewInTime: 60
 --- !u!1 &1460817831
 GameObject:
   m_ObjectHideFlags: 0

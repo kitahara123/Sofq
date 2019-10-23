@@ -36,6 +36,13 @@ namespace Sofq
             loserTable.SetActive(value);
         }
 
+        public void ShowRestartButtonAndScore(bool value)
+        {
+            loserTable.GetComponentInChildren<TextMeshProUGUI>().text =
+                $"GAME OVER YOUR SCORE IS <color=\"red\">{scoreLabel.text}</color>";
+            loserTable.SetActive(value);
+        }
+
         public void SetScore(int value)
         {
             scoreLabel.text = $"{value}";
@@ -49,7 +56,7 @@ namespace Sofq
 
         public void SetSpinsRenew(int spinsCount, int time)
         {
-            spinsRenewInLabel.text = $"5 spins in 17:25";
+            spinsRenewInLabel.text = $"{spinsCount} spins in {time / 60}:{time % 60}";
         }
     }
 }

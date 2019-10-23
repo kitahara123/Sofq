@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEditor.VersionControl;
 using UnityEngine;
@@ -18,24 +19,56 @@ namespace Sofq
         [SerializeField] private int betDelta = 100;
         [SerializeField] private int maxBet = 500;
         [SerializeField] private SlotMachineView view;
-        [SerializeField] private SlotMachineModel model = new SlotMachineModel();
         [SerializeField] private ScrollSnapBase slotScroll1;
         [SerializeField] private ScrollSnapBase slotScroll2;
         [SerializeField] private ScrollSnapBase slotScroll3;
         private TextMeshProUGUI betLabel;
-        private IServer server = new TestServer();
+        private IServer server;
+        private SlotMachineModel model;
 
         private int stopSlot1At = -1;
         private int stopSlot2At = -1;
         private int stopSlot3At = -1;
 
-        private bool isSpin = false;
+        private bool isWaitForUpdate = false;
 
         private void Start()
         {
+            server = GetComponentInChildren<TestServer>();
             view.AddSpinButtonListener(DoSpin);
             betLabel = view.AddBetButtonListener(ChangeBet);
             view.AddRestartButtonListener(Restart);
+            UpdateCurrentStats();
+            StartCoroutine(TimerUpdater());
+        }
+
+        private IEnumerator TimerUpdater()
+        {
+            yield return new WaitUntil(() => model != null);
+            while (true)
+            {
+                if (model.SpinsRenewInTime <= 0)
+                {
+                    model.SpinsRenewInTime = 0;
+                    UpdateCurrentStats();
+                }
+                else
+                {
+                    model.SpinsRenewInTime--;
+                    view.SetSpinsRenew(model.SpinsRenewCount, model.SpinsRenewInTime);
+                }
+
+                yield return new WaitForSeconds(1);
+            }
+        }
+
+        private async void UpdateCurrentStats()
+        {
+            if (isWaitForUpdate) return;
+            isWaitForUpdate = true;
+            var res = await server.GetCurrentStats();
+            model = JsonUtility.FromJson<SlotMachineModel>(res);
+            isWaitForUpdate = false;
             UpdateInterface();
         }
 
@@ -59,8 +92,12 @@ namespace Sofq
 
         private async void DoSpin()
         {
-            if (isSpin) return;
-            isSpin = true;
+            if (isWaitForUpdate) return;
+            isWaitForUpdate = true;
+
+            // Update this only for user to see, after taking info from server, we update it again 
+            view.SetSpinLeft(model.SpinsLeft - 1, model.MaxSpins);
+
             ToggleSpinAndWait(true);
             var result = await server.DoSpin(model.CurrentBet);
             model = JsonUtility.FromJson<SlotMachineModel>(result);
@@ -73,12 +110,12 @@ namespace Sofq
             stopSlot3At = GetPageIndexBySlotIndex(slotScroll3, model.Slot3.WinningItemIndex);
 
             UpdateInterface();
-            isSpin = false;
+            isWaitForUpdate = false;
         }
 
         private void ChangeBet()
         {
-            if (isSpin) return;
+            if (isWaitForUpdate) return;
             if (model.Score < betDelta) return;
             var betLimit = maxBet < model.Score ? maxBet : model.Score;
             var newBet = (model.CurrentBet + betDelta) % betLimit;
@@ -88,6 +125,7 @@ namespace Sofq
 
         private void Restart()
         {
+            server.Restart();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -95,16 +133,22 @@ namespace Sofq
         {
             view.SetScore(model.Score);
             view.SetSpinLeft(model.SpinsLeft, model.MaxSpins);
-            view.SetSpinsRenew(4, 1725);
-            if (model.Score < maxBet)
+            view.SetSpinsRenew(model.SpinsRenewCount, model.SpinsRenewInTime);
+
+            if (model.Score < maxBet && model.CurrentBet > model.Score)
             {
                 model.CurrentBet = model.Score;
                 betLabel.text = $"Bet x{model.CurrentBet}";
             }
 
-            if (model.Score <= 0 || model.SpinsLeft <= 0)
+            if (model.Score <= 0)
             {
                 view.ShowRestartButton(true);
+            }
+
+            if (model.SpinsLeft <= 0)
+            {
+                view.ShowRestartButtonAndScore(true);
             }
         }
 
