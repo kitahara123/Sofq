@@ -1746,6 +1746,7 @@ MonoBehaviour:
   CurrentBet: 100
   SpinsRenewCount: 5
   SpinsRenewInTime: 60
+  SpinsRenewInTimeDelta: 60
 --- !u!1 &1460817831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,26 +2953,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 9220526192522543513, guid: 475352dcc118be0409eb6eba43787740,
         type: 3}
       propertyPath: m_Sprite
@@ -3006,6 +2987,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220526192522543512, guid: 475352dcc118be0409eb6eba43787740,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475352dcc118be0409eb6eba43787740, type: 3}

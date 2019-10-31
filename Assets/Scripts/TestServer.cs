@@ -12,6 +12,7 @@ namespace Sofq
         [SerializeField] private int CurrentBet = 100;
         [SerializeField] private int SpinsRenewCount = 5;
         [SerializeField] private float SpinsRenewInTime = 60f;
+        [SerializeField] private float SpinsRenewInTimeDelta = 60f;
         private SlotMachineModel currentModel;
 
         private void Awake()
@@ -29,7 +30,9 @@ namespace Sofq
             if (SpinsRenewInTime <= 0)
             {
                 SpinsLeft += SpinsRenewCount;
-                SpinsRenewInTime = 60f;
+                if (SpinsLeft > MaxSpins) SpinsLeft = MaxSpins;
+                
+                SpinsRenewInTime = SpinsRenewInTimeDelta;
             }
         }
 
